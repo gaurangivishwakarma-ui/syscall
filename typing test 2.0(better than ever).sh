@@ -89,7 +89,8 @@ get_sentence() {
 calculate_wpm() {
     local user_input="$1"
     local time_elapsed="$2"
-    local word_count=$(echo "$user_input" | grep -o '[a-zA-Z]*' | wc -w)
+    #local word_count=$(echo "$user_input" | grep -o '[a-zA-Z]*' | wc -w)
+    local word_count=$(wc -w <<< "$user_input")
     # divide by zero handled if typing too fast
     if (( $(echo "$time_elapsed == 0" | bc -l) )); then time_elapsed=1; fi
     echo "scale=2; ($word_count / $time_elapsed) * 60" | bc
